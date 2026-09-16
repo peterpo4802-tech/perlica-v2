@@ -649,3 +649,21 @@ export function getRandomColor() {
 }
 
 export default botConfig;
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+
+client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+    
+    // 1. Find the channel using its unique ID
+    const announcementChannel = client.channels.cache.get('YOUR_CHANNEL_ID_HERE');
+    
+    // 2. Send the announcement
+    if (announcementChannel) {
+        announcementChannel.send("📢 **Attention Everyone!** This is an automated announcement from the bot.");
+    } else {
+        console.log("Channel not found!");
+    }
+});
+
+client.login('');
